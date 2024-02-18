@@ -1,6 +1,22 @@
 # 常用脚本
 
-## 1.分发脚本
+## 1.配置免密
+
+```shell
+#1.生成公私钥
+ssh-keygen -t rsa
+
+#2.分发公钥
+ssh-copy-id hadoop102
+
+```
+
+## 2.集群分发脚本
+
+```shell
+vim xsync
+```
+在该文件中编写如下代码
 ```shell
 #!/bin/bash
 
@@ -34,10 +50,34 @@ do
 done
 
 ```
+修改脚本xsync赋予执行权限
+```shell
+chmod +x xsync
+```
+测试脚本
+```shell
+xsync xsync
+```
 
-## 2.app下载地址
-1. **android** 版本体验地址 [flutter-mall-app](https://www.pgyer.com/OoW2Zy)
-2. **ios** 需要自己下载源码打包
+## 3.批量执行脚本
 
-## 3.KubeSphere地址
-[http://110.41.179.89:30880/login](http://110.41.179.89:30880/login)    账号：demo1 密码: 123456@Pass
+```shell
+vim xcall
+```
+在该文件中编写如下代码
+```shell
+#!/bin/bash
+ 
+for i in hadoop102 hadoop103 hadoop104
+do
+    echo --------- $i ----------
+    ssh $i "$*"
+done
+
+```
+修改脚本xsync赋予执行权限和测试
+```shell
+chmod +x xcall
+xcall jps
+```
+

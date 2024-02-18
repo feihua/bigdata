@@ -1,11 +1,43 @@
 # jdk安装
 
-## 1.zero-admin地址
-[http://110.41.179.89/mall](http://110.41.179.89/mall)   账号：admin 密码: 123456
+**卸载现有jdk**
+```shell
+sudo rpm -qa | grep -i java | xargs -n1 sudo rpm -e --nodeps
+```
 
-## 2.app下载地址
-1. **android** 版本体验地址 [flutter-mall-app](https://www.pgyer.com/OoW2Zy)
-2. **ios** 需要自己下载源码打包
+**解压JDK到/opt/module目录下**
+```shell
+tar -zxvf jdk-8u212-linux-x64.tar.gz -C /opt/module/
 
-## 3.KubeSphere地址
-[http://110.41.179.89:30880/login](http://110.41.179.89:30880/login)    账号：demo1 密码: 123456@Pass
+mv jdk1.8.0_212/ jdk-1.8.0
+```
+
+**配置JDK环境变量**
+
+1.新建/etc/profile.d/my_env.sh文件
+
+```shell
+sudo vim /etc/profile.d/my_env.sh
+```
+
+```shell
+#JAVA_HOME
+export JAVA_HOME=/opt/module/jdk-1.8.0
+export PATH=$PATH:$JAVA_HOME/bin
+```
+2.让环境变量生效
+```shell
+source /etc/profile.d/my_env.sh
+```
+
+**测试JDK是否安装成功**
+```shell
+java -version
+```
+```shell
+
+java version "1.8.0_212"
+Java(TM) SE Runtime Environment (build 1.8.0_212-b10)
+Java HotSpot(TM) 64-Bit Server VM (build 25.212-b10, mixed mode)
+
+```
