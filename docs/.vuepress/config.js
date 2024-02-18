@@ -1,4 +1,5 @@
 module.exports = {
+    base:'/bigdata/',
     title: '大数据文档',
     description: '大数据文档',
     markdown: {
