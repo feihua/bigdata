@@ -49,10 +49,9 @@ module.exports = {
         nav: [
             {text: '首页', link: '/'},
             {text: 'hadoop文档', link: '/hadoop/'},
-            {text: '使用文档', link: '/mall/'},
-            {
-                text: '演示地址', link: '/demo/'
-            },
+            {text: 'kafka文档', link: '/kafka/'},
+            {text: 'flume文档', link: '/flume/'},
+            {text: 'maxwell文档', link: '/maxwell/'},
         ],
         sidebarDepth: 3,
         lastUpdated: '上次更新', // 更新的时间，及前缀文字   string | boolean (取值为git提交时间)
@@ -65,41 +64,20 @@ module.exports = {
                 'install',
                 'cluster'
             ],
-            '/mall/': [
-                '',     /* /foo/ */
-                {
-                    title: '后端',   // 必要的
-                    collapsable: false, // 可选的, 默认值是 true,
-                    children: [
-                        'backend/development/env',
-                        'backend/development/start',
-                        'backend/development/goland',
-                        'backend/deploy/docker',
-                        'backend/deploy/k8s'
-                    ]
-                },
-                {
-                    title: '前端',   // 必要的
-                    collapsable: false, // 可选的, 默认值是 true,
-                    children: [
-                        'frontend/overview',
-                        'frontend/dev',
-                        'frontend/build',
-                    ]
-                },
-                {
-                    title: '移动端',   // 必要的
-                    collapsable: false, // 可选的, 默认值是 true,
-                    children: [
-                        'app/overview',
-                        'app/dev',
-                        'app/build',
-                    ]
-                },
-
+            '/kafka/': [
+                '',
+                'install',
+                'cluster'
             ],
-            '/demo/': [
-                ''
+            '/flume/': [
+                '',
+                'install',
+                'cluster'
+            ],
+            '/maxwell/': [
+                '',
+                'install',
+                'cluster'
             ],
 
 
