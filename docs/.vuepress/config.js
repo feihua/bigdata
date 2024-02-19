@@ -49,9 +49,13 @@ module.exports = {
         nav: [
             {text: '首页', link: '/'},
             {text: 'hadoop文档', link: '/hadoop/'},
+            {text: 'hive文档', link: '/hive/'},
+            {text: 'hbase文档', link: '/hbase/'},
             {text: 'kafka文档', link: '/kafka/'},
             {text: 'flume文档', link: '/flume/'},
             {text: 'maxwell文档', link: '/maxwell/'},
+            {text: 'spark文档', link: '/spark/'},
+            {text: 'flink文档', link: '/flink/'},
         ],
         sidebarDepth: 3,
         lastUpdated: '上次更新', // 更新的时间，及前缀文字   string | boolean (取值为git提交时间)
@@ -60,7 +64,19 @@ module.exports = {
             "/summary/": [""], //这样自动生成对应文章
             '/hadoop/': [
                 '',
+                'hostname',
+                'user',
                 'jdk',
+                'install',
+                'cluster'
+            ],
+            '/hive/': [
+                '',
+                'install',
+                'cluster'
+            ],
+            '/hbase/': [
+                '',
                 'install',
                 'cluster'
             ],
@@ -75,6 +91,16 @@ module.exports = {
                 'cluster'
             ],
             '/maxwell/': [
+                '',
+                'install',
+                'cluster'
+            ],
+            '/spark/': [
+                '',
+                'install',
+                'cluster'
+            ],
+            '/flink/': [
                 '',
                 'install',
                 'cluster'
