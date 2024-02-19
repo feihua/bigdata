@@ -29,7 +29,7 @@ export PATH=$PATH:$HADOOP_HOME/bin
 export PATH=$PATH:$HADOOP_HOME/sbin
 
 ```
-让环境变量生效和测试
+让环境变量生效
 ```shell
 source /etc/profile.d/my_env.sh
 ```
