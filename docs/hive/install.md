@@ -54,14 +54,14 @@ vim /opt/module/hive/conf/hive-site.xml
 
 添加如下内容。
 
-```shell
+```xml
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
     <!--配置Hive保存元数据信息所需的 MySQL URL地址-->
     <property>
         <name>javax.jdo.option.ConnectionURL</name>
-        <value>jdbc:mysql://hadoop102:3306/metastore?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true</value>
+        <value>jdbc:mysql://node1:3306/metastore?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true</value>
     </property>
 
     <!--配置Hive连接MySQL的驱动全类名-->

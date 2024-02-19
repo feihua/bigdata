@@ -51,14 +51,13 @@ GRANT SELECT, REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO 'maxwell'@'%';
 1）修改Maxwell配置文件名称
 
 ```shell
-cd /opt/module/maxwell
-cp config.properties.example config.properties
+cp /opt/module/maxwell/config.properties.example /opt/module/maxwell/config.properties
 ```
 
 2）修改Maxwell配置文件
 
 ```shell
-vim config.properties
+vim /opt/module/maxwell/config.properties
 ```
 
 ```text
