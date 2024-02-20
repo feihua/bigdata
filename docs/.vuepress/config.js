@@ -53,6 +53,7 @@ module.exports = {
             {text: 'hbase文档', link: '/hbase/'},
             {text: 'kafka文档', link: '/kafka/'},
             {text: 'flume文档', link: '/flume/'},
+            {text: 'datax文档', link: '/datax/'},
             {text: 'maxwell文档', link: '/maxwell/'},
             {text: 'spark文档', link: '/spark/'},
             {text: 'flink文档', link: '/flink/'},
@@ -88,6 +89,9 @@ module.exports = {
                 '',
                 'install',
                 'cluster'
+            ],
+            '/datax/': [
+                '',
             ],
             '/maxwell/': [
                 '',

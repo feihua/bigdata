@@ -93,8 +93,8 @@ vim /opt/module/hive/conf/hive-site.xml
     </property>
 
     <property>
-    <name>hive.server2.thrift.port</name>
-    <value>10000</value>
+        <name>hive.server2.thrift.port</name>
+        <value>10000</value>
     </property>
 
     <property>
@@ -106,7 +106,7 @@ vim /opt/module/hive/conf/hive-site.xml
         <name>hive.metastore.event.db.notification.api.auth</name>
         <value>false</value>
     </property>
-    
+
     <property>
         <name>hive.cli.print.header</name>
         <value>true</value>
@@ -168,3 +168,136 @@ nohup /opt/module/hive/bin/hive --service metastore &
 nohup /opt/module/hive/bin/hive --service hiveserver2 &
 
 ```
+
+```shell
+/opt/module/hive/bin/hive --service hiveserver2 stop
+
+```
+
+**10.Hive on Spark配置**
+
+上传并解压解压spark-3.3.1-bin-without-hadoop.tgz
+
+```shell
+tar -zxvf spark-3.3.1-bin-without-hadoop.tgz -C /opt/module/
+mv /opt/module/spark-3.3.1-bin-without-hadoop /opt/module/spark
+
+```
+
+修改spark-env.sh配置文件
+
+```shell
+mv /opt/module/spark/conf/spark-env.sh.template /opt/module/spark/conf/spark-env.sh
+```
+
+编辑文件
+
+```shell
+vim /opt/module/spark/conf/spark-env.sh
+```
+
+增加如下内容。
+
+```shell
+export SPARK_DIST_CLASSPATH=$(hadoop classpath)
+```
+
+配置SPARK_HOME环境变量
+
+```shell
+sudo vim /etc/profile.d/my_env.sh
+```
+
+添加如下内容。
+
+```shell
+export SPARK_HOME=/opt/module/spark
+export PATH=$PATH:$SPARK_HOME/bin
+```
+
+source 使其生效。
+
+```shell
+source /etc/profile.d/my_env.sh
+```
+
+在hive中创建spark配置文件
+
+```shell
+vim /opt/module/hive/conf/spark-defaults.conf
+```
+
+添加如下内容（在执行任务时，会根据如下参数执行）。
+
+```text
+spark.master                             yarn
+spark.eventLog.enabled                   true
+spark.eventLog.dir                       hdfs://node1:8020/spark-history
+spark.executor.memory                    1g
+spark.driver.memory					     1g
+```
+
+在HDFS创建如下路径，用于存储历史日志。
+
+```shell
+hadoop fs -mkdir /spark-history
+```
+
+（5）向HDFS上传Spark纯净版jar包
+说明1：采用Spark纯净版jar包，不包含hadoop和hive相关依赖，能避免依赖冲突。
+说明2：Hive任务最终由Spark来执行，Spark任务资源分配由Yarn来调度，该任务有可能被分配到集群的任何一个节点。所以需要将Spark的依赖上传到HDFS集群路径，这样集群中任何一个节点都能获取到。
+
+```shell
+hadoop fs -mkdir /spark-jars
+hadoop fs -put /opt/module/spark/jars/* /spark-jars
+```
+
+修改hive-site.xml文件
+
+```shell
+vim /opt/module/hive/conf/hive-site.xml
+```
+
+添加如下内容。
+
+```text
+<!--Spark依赖位置（注意：端口号8020必须和namenode的端口号一致）-->
+<property>
+    <name>spark.yarn.jars</name>
+    <value>hdfs://node1:8020/spark-jars/*</value>
+</property>
+
+<!--Hive执行引擎-->
+<property>
+    <name>hive.execution.engine</name>
+    <value>spark</value>
+</property>
+```
+
+Hive on Spark测试
+
+**11.启动Hive客户端**
+
+```shell
+/opt/module/hive/bin/hive
+```
+
+```shell
+hive (default)> create table student(id int, name string);
+hive (default)> insert into table student values(1,'abc');
+```
+
+增加ApplicationMaster资源比例
+
+```shell
+vim /opt/module/hadoop/etc/hadoop/capacity-scheduler.xml
+```
+默认为0.1，修改为0.8
+
+```xml
+<property>
+    <name>yarn.scheduler.capacity.maximum-am-resource-percent</name>
+    <value>0.8</value>
+</property>
+```
+修改完后要重启hadoop
